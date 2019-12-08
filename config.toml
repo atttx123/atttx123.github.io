@@ -1,0 +1,23 @@
+baseURL = "http://atttx123.cn/"
+
+theme = "beautifulhugo"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+DefaultContentLanguage = "zh-cn"
+[languages]
+  [languages.en]
+    title = "Treasure Island"
+    contentDir = "content/en" # English
+  [languages.zh-cn]
+    title = "金银岛"
+    contentDir = "content/zh" # Chinese
+
+[Author]
+  name = "yu"
+  website = "atttx123.cn"
+  github = "atttx123"
+  twitter = "atttx123"
+  linkedin = "yu-62235748"
+  medium = "atttx123"
+  stackoverflow = "atttx123"
