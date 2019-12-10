@@ -1,4 +1,4 @@
-baseURL = "http://atttx123.cn/"
+baseURL = "http://blog.atttx123.cn/"
 
 theme = "beautifulhugo"
 pygmentsCodeFences = true
@@ -14,8 +14,7 @@ DefaultContentLanguage = "zh-cn"
     contentDir = "content/zh" # Chinese
 
 [Author]
-  name = "yu"
-  website = "atttx123.cn"
+  name = "atttx123"
   github = "atttx123"
   twitter = "atttx123"
   linkedin = "yu-62235748"
