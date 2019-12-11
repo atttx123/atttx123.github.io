@@ -17,11 +17,8 @@ jobs:
         hugo-version: 'latest'
 
     - name: Build
-      run: hugo --gc --minify --cleanDestinationDir
-
-    - name: ADD CNAME
       run: |
-        buildcommand
+        hugo --gc --minify --cleanDestinationDir
         cp ./CNAME ./public/CNAME
 
     - name: Deploy
