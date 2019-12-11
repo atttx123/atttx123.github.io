@@ -7,11 +7,15 @@ pygmentsUseClasses = true
 DefaultContentLanguage = "zh-cn"
 [languages]
   [languages.en]
-    title = "Treasure Island"
+    title = "atttx123's blog"
     contentDir = "content/en" # English
   [languages.zh-cn]
-    title = "金银岛"
+    title = "atttx123的blog"
     contentDir = "content/zh" # Chinese
+
+[Params]
+  logo = "img/avatar-icon.png" # Expecting square dimensions
+  favicon = "img/favicon.ico"
 
 [Author]
   name = "atttx123"
