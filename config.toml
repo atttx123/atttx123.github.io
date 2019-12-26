@@ -1,8 +1,10 @@
 baseURL = "http://blog.atttx123.cn/"
 
 theme = "beautifulhugo"
+pygmentsStyle = "trac"
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+pygmentsCodefencesGuessSyntax = true
 
 DefaultContentLanguage = "zh-cn"
 [languages]
@@ -13,9 +15,11 @@ DefaultContentLanguage = "zh-cn"
     title = "atttx123的blog"
     contentDir = "content/zh" # Chinese
 
+enableGitInfo = true
 [Params]
   logo = "img/avatar-icon.png" # Expecting square dimensions
   favicon = "img/favicon.ico"
+  commit = "https://github.com/atttx123/atttx123.github.io/tree/"
 
 [Author]
   name = "atttx123"

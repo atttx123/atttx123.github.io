@@ -6,20 +6,13 @@ list:
 clean:
 	rm -rf public/ resources/
 
+space := " "
 today = $$(date +%Y-%m-%d)
 
-new-zh:
+new-post:
 	@read -p "Enter Name: " name; \
-	hugo new content/zh/posts/$(today)-$$name.md
-
-new-en:
-	@read -p "Enter Name: " name; \
-	hugo new content/en/posts/$(today)-$$name.md
-
-new-all:
-	@read -p "Enter Name: " name; \
-	hugo new content/en/posts/$(today)-$$name.md; \
-	hugo new content/zh/posts/$(today)-$$name.md
+	hugo new content/en/posts/$(today)-$${name// /-}.md; \
+	hugo new content/zh/posts/$(today)-$${name// /-}.md
 
 list-content:
 	find "content" -name "*.md"
