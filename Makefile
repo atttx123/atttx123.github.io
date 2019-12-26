@@ -19,3 +19,6 @@ list-content:
 
 list-draft:
 	find "content" -name "*.md" -exec grep --color -l "draft: true" {} +
+
+list-finalize:
+	find "content" -name "*.md" -exec grep --color -l "draft: false" {} +
