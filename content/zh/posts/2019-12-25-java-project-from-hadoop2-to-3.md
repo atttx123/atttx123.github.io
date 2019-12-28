@@ -10,8 +10,6 @@ draft: false
 
 ## Hadoop 3 版本介绍
 
-------
-
 hadoop 3 的第一个版本是2017年12月8日GA的，主要版本及发布时间如下：
 
 | 版本   | 时间       |
@@ -29,8 +27,6 @@ hadoop 3 的第一个版本是2017年12月8日GA的，主要版本及发布时�
 
 ## Hadoop 2与3有哪些不同
 
-------
-
 Hadoop 3 在 Hadoop 2的基础上进行了大量的更新，从官方文档中整理出以下几个大方面[^1]：
 
 [^1]: [Hadoop 3.0 Release Note](https://hadoop.apache.org/docs/r3.0.0/index.html)
@@ -43,7 +39,7 @@ Hadoop 3 在 Hadoop 2的基础上进行了大量的更新，从官方文档中�
 
 ### HDFS改进
 
-- 支持erasure编码
+- 支持Erasure Coding
 - 支持超过两个namenode
 - 多个服务默认端口发生变化（影响NameNode, Secondary NameNode, DataNode, KMS）
 
@@ -58,8 +54,6 @@ Hadoop 3 在 Hadoop 2的基础上进行了大量的更新，从官方文档中�
 - 更加简易的内存配置
 
 ## 终端用户关心的主要变化
-
-------
 
 以上更新中，终端用户比较关心的变化有以下两个：
 
@@ -104,7 +98,7 @@ HDFS端口变化如下：
 基于以上问题，在Hadoop 3中有了新的两个包：
 
 * [hadoop-client-api](https://search.maven.org/artifact/org.apache.hadoop/hadoop-client-api)：提供接口定义
-* [hadoop-client-runtime](https://search.maven.org/artifact/org.apache.hadoop/hadoop-client-runtime)：提供具体实现
+* [hadoop-client-runtime](https://search.maven.org/artifact/org.apache.hadoop/hadoop-client-runtime)：提供具体实现，主要的改变是将依赖进行了shade，避免了依赖冲突
 
 新包的依赖结构比之前版本简单很多，具体依赖如下：
 
@@ -117,3 +111,25 @@ HDFS端口变化如下：
    \- com.google.code.findbugs:jsr305:jar:3.0.0:runtime
 ```
 
+### HDFS Erasure Coding
+
+这个特性是Hadoop 3最主要的特性之一，因为篇幅较长因此拆分到另外一篇：[HDFS Erasure Coding](/posts/2019-12-28-hadoop-3-hdsf-erasure-coding)
+
+## 兼容性测试
+
+### 猜想
+
+如果HDFS**不开启Erasure Coding**那么yarn和hdfs与之前版本的Hadoop应该是没有太大区别的。
+
+### 测试结果
+
+|                                          | CDH 6.3.2（HDFS without EC） | CDH 6.3.2 （HDFS with EC） |
+| ---------------------------------------- | :---------------------------: | :------------------------: |
+| `yarn application -list ` (hadoop-2.7.7) | ✅       | ✅ |
+| `yarn application -list ` (hadoop-3.2.1) | ✅ | ✅ |
+| `hdfs dfs -ls /` (hadoop-2.7.7) | ✅ | ❔ |
+| `hdfs dfs -ls /` (hadoop-3.2.1) | ✅ | ❔ |
+| `./bin/yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.7.jar pi 10 100` | ❌ | ❔ |
+| `yarn jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar pi 10 100` | ✅ | ❔ |
+| `spark-submit --class org.apache.spark.examples.SparkPi --master "yarn" --deploy-mode cluster --executor-memory "5G" --num-executors 10  ./lib/spark-examples-1.6.3-hadoop2.6.0.jar 100` | ✅ | ❔ |
+| `spark-submit --class org.apache.spark.examples.SparkPi --master "yarn" --deploy-mode cluster --executor-memory "5G" --num-executors 10 ./examples/jars/spark-examples_2.11-2.4.3.jar 100` | ✅ | ❔|
