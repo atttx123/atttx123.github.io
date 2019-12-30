@@ -1,6 +1,6 @@
 ---
 author: atttx123
-title: "Hadoop 3 Hdsf Erasure Coding"
+title: "Hadoop 3 HDFS Erasure Coding"
 date: 2019-12-28T21:19:16+08:00
 draft: false
 ---
@@ -13,9 +13,9 @@ draft: false
 
 HDFS默认会将每一个Block复制三保存（为什么需要三副本？因为某胖不会数三。。。。。。）。副本机制（Replication）是一种可以抵御大多数故障的简单而健壮的冗余形式，同时副本机制还可以有效的简化计算的并行调度逻辑。
 
-但是复制是非常昂贵的：默认的三副本方案会导致存储空间和其他资源（例如，写入数据时的网络带宽）产生200％的开销；对于冷门数据集（IO压力比较低），可能在正常操作期间很少访问其他块副本（单IO、顺序读取）但仍会消耗相同数量的存储空间。
+但是复制是非常昂贵的：默认的三副本方案会导致存储空间和其他资源（例如，写入数据时的网络带宽）产生200％的开销；对于冷门数据集可能在正常操作期间很少访问其他块副本（单IO、顺序读取）但仍会消耗相同数量的存储空间。
 
-基于以上原因，在2014年下半年，英特尔和Cloudera共同提出了将纠删码（Erasure Code）融入到HDFS内部的想法和设计，随后吸引了包括Hortonworks、华为、Yahoo!等众多公司的参与，使之成为Hadoop开源社区较为活跃的一个项目：[HDFS-7285](https://issues.apache.org/jira/browse/HDFS-7285)。
+基于以上原因，在2014年下半年，英特尔和Cloudera共同提出了将纠删码（Erasure Code）融入到HDFS内部的想法和设计[^1]，随后吸引了包括Hortonworks、华为、Yahoo!等众多公司的参与，使之成为Hadoop开源社区较为活跃的一个项目：[HDFS-7285](https://issues.apache.org/jira/browse/HDFS-7285)。
 
 [^1]:https://blog.cloudera.com/introduction-to-hdfs-erasure-coding-in-apache-hadoop/
 
