@@ -1,4 +1,4 @@
-baseURL = "http://blog.atttx123.cn/"
+baseURL = "https://atttx123.github.io/"
 
 theme = "beautifulhugo"
 pygmentsStyle = "trac"
